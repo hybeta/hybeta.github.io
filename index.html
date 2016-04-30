@@ -251,6 +251,115 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/30/Install-MySQL-on-OS-X-using-Homebrew/" itemprop="url">
+                  Install MySQL on OS X using Homebrew
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-04-30T10:27:07+08:00" content="2016-04-30">
+              2016-04-30
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>基于Unix的OS X，与其他的类Unix系统一样，除了可以自己下载、编译源码来安装应用以外，对应于Linux上的RPM及YUM，OS X也有自己的一套包管理工具。包管理工具处理软件包依赖，更好的管理软件的安装、更新与移除。目前在OS X上最受欢迎的包管理工具大概就是<a href="http://brew.sh/index.html" target="_blank" rel="external">Homebrew</a>了。</p>
+<p>引用一句官网上的话就是</p>
+<blockquote>
+<p>Homebrew installs the stuff you need that Apple didn’t.</p>
+</blockquote>
+<p>所以废话不多说，开始吧</p>
+<p>#安装</p>
+<pre><code class="bash">$ /usr/bin/ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span>
+</code></pre>
+<p>That’s it!</p>
+<p>接下来我们就可以通过Homebrew来安装MySQL了。  </p>
+<pre><code class="bash">$ brew install mysql
+</code></pre>
+<p>启动MySQL  </p>
+<pre><code class="bash">$ mysql.server restart
+</code></pre>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/19/hello-world/" itemprop="url">
                   Hello World
                 </a>
@@ -373,7 +482,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
