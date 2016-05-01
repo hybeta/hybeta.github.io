@@ -301,15 +301,33 @@
 <p>Homebrew installs the stuff you need that Apple didn’t.</p>
 </blockquote>
 <p>所以废话不多说，开始吧</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><pre><code class="bash">$ /usr/bin/ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h2><pre><code class="bash">$ /usr/bin/ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span>
 </code></pre>
 <p>That’s it!</p>
 <p>接下来我们就可以通过Homebrew来安装MySQL了。  </p>
-<pre><code class="bash">$ brew install mysql
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><pre><code class="bash">$ brew install mysql
 </code></pre>
-<p>启动MySQL  </p>
+<p>在Terminal上看到下面信息，说明MySQL已经安装完成。Homebrew会将应用安装到自己的目录下(/usr/local/Cellar)，然后symlink到/usr/local中  </p>
+<blockquote>
+<p>==&gt; /usr/local/Cellar/mysql/5.7.12/bin/mysqld –initialize-insecure –user=yuan –basedir=/usr/local/Cellar/mysql/5.7.12<br>We’ve installed your MySQL database without a root password. To secure it run:<br>   mysql_secure_installation<br>…<br>==&gt; Summary<br>🍺  /usr/local/Cellar/mysql/5.7.12: 13,281 files, 444.8M</p>
+</blockquote>
+<p>启动MySQL</p>
 <pre><code class="bash">$ mysql.server restart
 </code></pre>
+<p>到目前为止，MySQL已经可以正常使用。但是为了更接近生产环境，可以进一步运行一下命令。  </p>
+<pre><code class="bash">$ mysql_secure_installation
+</code></pre>
+<p>根据提示，设置密码、移除匿名用户、禁用远程登录以及删除测试库。</p>
+<h3 id="配置文件my-cnf"><a href="#配置文件my-cnf" class="headerlink" title="配置文件my.cnf"></a>配置文件my.cnf</h3><pre><code class="bash">$ mysqld --help --verbose
+</code></pre>
+<p>可以看到加载配置文件的路径及顺序。</p>
+<blockquote>
+<p>Default options are read from the following files in the given order:<br>/etc/my.cnf /etc/mysql/my.cnf /usr/local/etc/my.cnf ~/.my.cnf </p>
+</blockquote>
+<p>将MySQL下提供的文件拷贝的/etc下  </p>
+<pre><code class="bash">$ sudo cp $(brew --prefix mysql)/support-files/my-default.cnf /etc/my.cnf
+</code></pre>
+<p>基于这个文件基本没什么内容，可以根据需求进行配置。</p>
 
           
         
@@ -488,6 +506,13 @@
 
           
 
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
           
 
         </nav>

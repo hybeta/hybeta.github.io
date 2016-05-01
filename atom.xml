@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://hybeta.info/"/>
-  <updated>2016-04-30T15:59:38.000Z</updated>
+  <updated>2016-05-01T18:30:05.000Z</updated>
   <id>http://hybeta.info/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://hybeta.info/2016/04/30/Install-MySQL-on-OS-X-using-Homebrew/"/>
     <id>http://hybeta.info/2016/04/30/Install-MySQL-on-OS-X-using-Homebrew/</id>
     <published>2016-04-30T02:27:07.000Z</published>
-    <updated>2016-04-30T15:59:38.000Z</updated>
+    <updated>2016-05-01T18:30:05.000Z</updated>
     
     <content type="html">&lt;p&gt;基于Unix的OS X，与其他的类Unix系统一样，除了可以自己下载、编译源码来安装应用以外，对应于Linux上的RPM及YUM，OS X也有自己的一套包管理工具。包管理工具处理软件包依赖，更好的管理软件的安装、更新与移除。目前在OS X上最受欢迎的包管理工具大概就是&lt;a href=&quot;http://brew.sh/index.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Homebrew&lt;/a&gt;了。&lt;/p&gt;
 &lt;p&gt;引用一句官网上的话就是&lt;/p&gt;
@@ -28,15 +28,33 @@
 &lt;p&gt;Homebrew installs the stuff you need that Apple didn’t.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;所以废话不多说，开始吧&lt;/p&gt;
-&lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;$ /usr/bin/ruby &lt;span class=&quot;_&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&lt;/span&gt;&quot;&lt;/span&gt;
+&lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;h2 id=&quot;Homebrew&quot;&gt;&lt;a href=&quot;#Homebrew&quot; class=&quot;headerlink&quot; title=&quot;Homebrew&quot;&gt;&lt;/a&gt;Homebrew&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;$ /usr/bin/ruby &lt;span class=&quot;_&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&lt;/span&gt;&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;That’s it!&lt;/p&gt;
 &lt;p&gt;接下来我们就可以通过Homebrew来安装MySQL了。  &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;$ brew install mysql
+&lt;h2 id=&quot;MySQL&quot;&gt;&lt;a href=&quot;#MySQL&quot; class=&quot;headerlink&quot; title=&quot;MySQL&quot;&gt;&lt;/a&gt;MySQL&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;$ brew install mysql
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;启动MySQL  &lt;/p&gt;
+&lt;p&gt;在Terminal上看到下面信息，说明MySQL已经安装完成。Homebrew会将应用安装到自己的目录下(/usr/local/Cellar)，然后symlink到/usr/local中  &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;==&amp;gt; /usr/local/Cellar/mysql/5.7.12/bin/mysqld –initialize-insecure –user=yuan –basedir=/usr/local/Cellar/mysql/5.7.12&lt;br&gt;We’ve installed your MySQL database without a root password. To secure it run:&lt;br&gt;   mysql_secure_installation&lt;br&gt;…&lt;br&gt;==&amp;gt; Summary&lt;br&gt;🍺  /usr/local/Cellar/mysql/5.7.12: 13,281 files, 444.8M&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;启动MySQL&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;$ mysql.server restart
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;到目前为止，MySQL已经可以正常使用。但是为了更接近生产环境，可以进一步运行一下命令。  &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;$ mysql_secure_installation
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;根据提示，设置密码、移除匿名用户、禁用远程登录以及删除测试库。&lt;/p&gt;
+&lt;h3 id=&quot;配置文件my-cnf&quot;&gt;&lt;a href=&quot;#配置文件my-cnf&quot; class=&quot;headerlink&quot; title=&quot;配置文件my.cnf&quot;&gt;&lt;/a&gt;配置文件my.cnf&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;$ mysqld --help --verbose
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;可以看到加载配置文件的路径及顺序。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Default options are read from the following files in the given order:&lt;br&gt;/etc/my.cnf /etc/mysql/my.cnf /usr/local/etc/my.cnf ~/.my.cnf &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;将MySQL下提供的文件拷贝的/etc下  &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;$ sudo cp $(brew --prefix mysql)/support-files/my-default.cnf /etc/my.cnf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;基于这个文件基本没什么内容，可以根据需求进行配置。&lt;/p&gt;
 </content>
     
     <summary type="html">
@@ -45,6 +63,10 @@
     
     </summary>
     
+    
+      <category term="Homebrew" scheme="http://hybeta.info/tags/Homebrew/"/>
+    
+      <category term="MySQL" scheme="http://hybeta.info/tags/MySQL/"/>
     
   </entry>
   
